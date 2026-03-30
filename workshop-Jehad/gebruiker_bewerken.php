@@ -2,10 +2,25 @@
 <?php include 'connect.php'; ?>
 
 <?php
-$id = $_GET['id'];
-$result = $conn->query("SELECT * FROM inloggen WHERE inloggen_id = $id");
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+if ($id <= 0) {
+    echo "Ongeldig gebruikers-ID.";
+    exit;
+}
+
+$result = $conn->query("SELECT * FROM gebruikers WHERE inloggen_id = $id");
+if (!$result) {
+    echo "Fout bij ophalen gebruiker: " . htmlspecialchars($conn->error);
+    exit;
+}
+
 $gebruiker = $result->fetch_assoc();
+if (!$gebruiker) {
+    echo "Gebruiker niet gevonden.";
+    exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -30,14 +45,14 @@ if(isset($_POST['opslaan'])) {
     $email = $_POST['email'];
     $wachtwoord = $_POST['wachtwoord'];
 
-    $sql = "UPDATE inloggen
+    $sql = "UPDATE gebruikers
             SET naam='$naam', email='$email', wachtwoord='$wachtwoord'
             WHERE inloggen_id=$id";
 
     if ($conn->query($sql)) {
         echo " Wijzigingen opgeslagen!";
     } else {
-        echo " Fout!";
+        echo " Fout bij opslaan: " . htmlspecialchars($conn->error);
     }
 }
 ?>

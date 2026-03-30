@@ -17,6 +17,8 @@
     <button type="submit" name="opslaan">Opslaan</button>
 </form>
 
+<p><a href="gebruikers.php">Terug naar gebruikers</a></p>
+
 <?php
 if (isset($_POST['opslaan'])) {
 
@@ -24,13 +26,13 @@ if (isset($_POST['opslaan'])) {
     $email = $_POST['email'];
     $wachtwoord = $_POST['wachtwoord'];
 
-    $sql = "INSERT INTO inloggen (naam, email, wachtwoord)
+    $sql = "INSERT INTO gebruikers (naam, email, wachtwoord)
             VALUES ('$naam', '$email', '$wachtwoord')";
 
     if ($conn->query($sql)) {
         echo " Gebruiker toegevoegd!";
     } else {
-        echo " Fout bij opslaan!";
+        echo " Fout bij opslaan: " . htmlspecialchars($conn->error);
     }
 }
 ?>

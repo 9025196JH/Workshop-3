@@ -10,7 +10,7 @@
 
 <h1>Gebruikers overzicht</h1>
 
-a href="gebruiker_toevoegen.php">+ Nieuwe gebruiker toevoegen</a>
+<a href="gebruiker_toevoegen.php">+ Nieuwe gebruiker toevoegen</a>
 <br><br>
 
 <table border="1" cellpadding="8">
@@ -23,7 +23,13 @@ a href="gebruiker_toevoegen.php">+ Nieuwe gebruiker toevoegen</a>
     </tr>
 
 <?php
-$result = $conn->query("SELECT * FROM inloggen");
+$result = $conn->query("SELECT * FROM gebruikers");
+
+if (!$result) {
+    echo "</table>";
+    echo "<p>Fout bij ophalen gebruikers: " . htmlspecialchars($conn->error) . "</p>";
+    exit;
+}
 
 while($row = $result->fetch_assoc()) {
     echo "<tr>
@@ -32,12 +38,13 @@ while($row = $result->fetch_assoc()) {
             <td>{$row['email']}</td>
             <td>{$row['wachtwoord']}</td>
             <td>
-                gebruiker_bewerken.php?id={$row['inloggen_id']}'>Bewerken</a> |
-                gebruiker_verwijderen.php?id={$row['inloggen_id']}'>Verwijderen</a>
+                <a href=\"gebruiker_bewerken.php?id={$row['inloggen_id']}\">Bewerken</a> |
+                <a href=\"gebruiker_verwijderen.php?id={$row['inloggen_id']}\">Verwijderen</a>
             </td>
           </tr>";
 }
 ?>
+
 </table>
 
 </body>
