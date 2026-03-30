@@ -1,3 +1,0 @@
-<?php $pageTitle='Review - TechZone'; include __DIR__.'/includes/header.php'; ?>
-<main class="page"><section class="card"><h1>Reviewformulier</h1><form data-validate method="post" action="thanks.php"><label>Naam*<input name="name" required></label><label>Product*<input name="product" required></label><label>Score*<select name="score" required><option value="">Kies</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label><label>Review*<textarea name="review" rows="6" required></textarea></label><button class="btn primary" type="submit">Plaats review</button></form></section></main>
-<?php include __DIR__.'/includes/footer.php'; ?>

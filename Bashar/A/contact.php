@@ -1,3 +1,0 @@
-<?php $pageTitle='Contact - TechZone'; include __DIR__.'/includes/header.php'; ?>
-<main class="page"><section class="card"><h1>Contact</h1><form data-validate method="post" action="thanks.php"><label>Naam*<input name="name" required></label><label>Email*<input type="email" name="email" required></label><label>Bericht*<textarea name="message" rows="6" required></textarea></label><button class="btn primary" type="submit">Verstuur</button></form></section></main>
-<?php include __DIR__.'/includes/footer.php'; ?>
