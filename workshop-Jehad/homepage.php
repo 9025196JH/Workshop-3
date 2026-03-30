@@ -10,6 +10,7 @@
 
 <nav>
     <div class="menu">
+        TechZone
         <a href="index.php">Home</a>
         <a href="producten.php">Producten</a>
         <a href="over.php">Over ons</a>
