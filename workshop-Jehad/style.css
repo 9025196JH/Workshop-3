@@ -1,0 +1,84 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigatiebalk */
+nav {
+    background: gray;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Menu links */
+.menu {
+    display: flex;
+    gap: 25px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Rechts: zoekbalk + iconen */
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Zoekbalk */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.search-container input {
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+.search-icon {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+/* Iconen (hartje, winkelmandje, poppetje) */
+.icon {
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Welkomtekst */
+.welcome {
+    padding: 20px;
+}
+
+
+
+
+/* Footer */
+.footer {
+    background: #4a4a4a;
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 40px;
+}
+
+
+
