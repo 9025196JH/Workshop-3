@@ -1,0 +1,3 @@
+<?php $pageTitle='Over Ons - TechZone'; include __DIR__.'/includes/header.php'; ?>
+<main class="page"><section class="card"><h1>Over TechZone</h1><p>TechZone is een Nederlandse online elektronicawinkel die in 2026 is opgericht. Wij verkopen smartphones, laptops en tablets.</p><p>Onze missie is om de beste technologie bereikbaar te maken voor iedereen in Nederland, met snelle levering en duidelijke productinformatie.</p></section></main>
+<?php include __DIR__.'/includes/footer.php'; ?>

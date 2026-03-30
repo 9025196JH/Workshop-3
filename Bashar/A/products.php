@@ -1,0 +1,3 @@
+<?php $pageTitle='Producten - TechZone'; include __DIR__.'/includes/header.php'; $category = $_GET['category'] ?? 'all'; ?>
+<main class="page"><section class="card"><h1>Producten</h1><p>Filter: <?php echo htmlspecialchars($category); ?></p><table><thead><tr><th>Naam</th><th>Omschrijving</th><th>Prijs</th><th>Foto</th></tr></thead><tbody><tr><td>Smartphone X</td><td>Snelle 5G smartphone</td><td>€699</td><td>Afbeelding</td></tr><tr><td>Laptop Pro</td><td>Krachtige laptop voor studie en werk</td><td>€1199</td><td>Afbeelding</td></tr><tr><td>Tablet Air</td><td>Lichte tablet voor dagelijks gebruik</td><td>€499</td><td>Afbeelding</td></tr></tbody></table></section></main>
+<?php include __DIR__.'/includes/footer.php'; ?>

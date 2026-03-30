@@ -1,0 +1,3 @@
+<?php $pageTitle='Inloggen - TechZone'; include __DIR__.'/includes/header.php'; ?>
+<main class="page"><section class="card"><h1>Inloggen</h1><form data-validate method="post" action="thanks.php"><label>Email*<input type="email" name="email" required></label><label>Wachtwoord*<input type="password" name="password" required></label><button class="btn primary" type="submit">Login</button></form></section></main>
+<?php include __DIR__.'/includes/footer.php'; ?>
