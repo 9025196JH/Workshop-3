@@ -10,8 +10,8 @@
 
 <nav>
     <div class="menu">
-        TechZone
-        <a href="index.php">Home</a>
+        <a class="logo" href="homepage.php">TechZone</a>
+        <a href="homepage.php">Home</a>
         <a href="producten.php">Producten</a>
         <a href="over.php">Over ons</a>
         <a href="contact.php">Contact</a>

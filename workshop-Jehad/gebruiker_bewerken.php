@@ -36,6 +36,7 @@ if (!$gebruiker) {
     Email: <input type="email" name="email" value="<?= $gebruiker['email'] ?>"><br><br>
     Wachtwoord: <input type="text" name="wachtwoord" value="<?= $gebruiker['wachtwoord'] ?>"><br><br>
     <button type="submit" name="opslaan">Opslaan</button>
+    <p><a href="crud_gebruikers.php">Terug naar gebruikers</a></p>
 </form>
 
 <?php
