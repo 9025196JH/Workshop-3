@@ -16,6 +16,6 @@ if ($conn->query($sql)) {
     echo " Fout bij verwijderen: " . htmlspecialchars($conn->error);
 }
 
-echo '<p><a href="crus_gebruikers.php">Terug naar gebruikers</a></p>';
+echo '<p><a href="crud_gebruikers.php">Terug naar gebruikers</a></p>';
 ?>
 

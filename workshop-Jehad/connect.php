@@ -5,12 +5,17 @@ $user = "root";
 $pass = "";
 $dbname = "techzone";
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+try {
+    // Maak PDO connectie
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
 
-if ($conn->connect_error) {
-    $melding = "Database connectie mislukt!";
-} else {
+    // Zet foutmodus op exceptions (belangrijk!)
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     $melding = "Database connectie succesvol!";
+
+} catch (PDOException $e) {
+    $melding = "Database connectie mislukt!";
 }
 
 // Check of dit bestand rechtstreeks is geopend

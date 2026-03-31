@@ -1,3 +1,4 @@
+
 <?php include 'connect.php'; ?>
 <!DOCTYPE html>
 <html>
@@ -22,25 +23,28 @@
     </tr>
 
 <?php
-$result = $conn->query("SELECT * FROM gebruikers");
+try {
+    // Query uitvoeren met PDO
+    $stmt = $conn->query("SELECT * FROM gebruikers");
 
-if (!$result) {
+    // Haal elke rij op
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<tr>
+                <td>{$row['inloggen_id']}</td>
+                <td>{$row['naam']}</td>
+                <td>{$row['email']}</td>
+                <td>{$row['wachtwoord']}</td>
+                <td>
+                    <a href=\"gebruiker_bewerken.php?id={$row['inloggen_id']}\">Bewerken</a> |
+                    <a href=\"gebruiker_verwijderen.php?id={$row['inloggen_id']}\">Verwijderen</a>
+                </td>
+              </tr>";
+    }
+
+} catch (PDOException $e) {
     echo "</table>";
-    echo "<p>Fout bij ophalen gebruikers: " . htmlspecialchars($conn->error) . "</p>";
+    echo "<p>Fout bij ophalen gebruikers: " . htmlspecialchars($e->getMessage()) . "</p>";
     exit;
-}
-
-while($row = $result->fetch_assoc()) {
-    echo "<tr>
-            <td>{$row['inloggen_id']}</td>
-            <td>{$row['naam']}</td>
-            <td>{$row['email']}</td>
-            <td>{$row['wachtwoord']}</td>
-            <td>
-                <a href=\"gebruiker_bewerken.php?id={$row['inloggen_id']}\">Bewerken</a> |
-                <a href=\"gebruiker_verwijderen.php?id={$row['inloggen_id']}\">Verwijderen</a>
-            </td>
-          </tr>";
 }
 ?>
 
