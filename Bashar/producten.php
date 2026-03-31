@@ -1,103 +1,117 @@
 <?php
-include 'connect.php';
-
-// Zoekfunctie
-$zoek = '';
-if (isset($_GET['zoek'])) {
-    $zoek = $_GET['zoek'];
-}
-
-// Filterfunctie
-$categorie = '';
-if (isset($_GET['categorie'])) {
-    $categorie = $_GET['categorie'];
-}
-
-// Query opbouwen
-$producten = [];
-if ($zoek != '' && $categorie != '') {
-    $stmt = $conn->prepare("SELECT * FROM producten WHERE naam LIKE ? AND categorie = ?");
-    $searchTerm = '%' . $zoek . '%';
-    $stmt->bind_param("ss", $searchTerm, $categorie);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $producten = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-} elseif ($zoek != '') {
-    $stmt = $conn->prepare("SELECT * FROM producten WHERE naam LIKE ?");
-    $searchTerm = '%' . $zoek . '%';
-    $stmt->bind_param("s", $searchTerm);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $producten = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-} elseif ($categorie != '') {
-    $stmt = $conn->prepare("SELECT * FROM producten WHERE categorie = ?");
-    $stmt->bind_param("s", $categorie);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $producten = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
+include 'connect_pdo.php';
+// functie: producten overzicht tonen
+// auteur: Bashar Al Aboud
+$categorie = isset($_GET['categorie']) ? $_GET['categorie'] : '';
+// ophalen van producten (met of zonder categorie filter)
+if ($categorie !== '') {
+    $stmt = $pdo->prepare("SELECT * FROM producten WHERE categorie = ?");
+    $stmt->execute([$categorie]);
 } else {
-    $result = $conn->query("SELECT * FROM producten");
-    $producten = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt = $pdo->query("SELECT * FROM producten");
 }
+
+$producten = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <title>Producten - TechZone</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="top-line">Gratis verzending bij bestellingen boven €100 | Snelle levering in heel Nederland</div>
-<nav>
-    <div class="navbar-left">
-        <a href="index.php" class="logo">TechZone</a>
-    </div>
+    <nav>
+        <div class="menu">
+            <a class="logo" href="homepage.php">TechZone</a>
+            <a href="homepage.php">Home</a>
 
-    <div class="menu">
-        <a href="index.php">Home</a>
-        <a href="producten.php">Producten</a>
-        <a href="over.php">Over ons</a>
-        <a href="contact.php">Contact</a>
-    </div>
+            <div class="dropdown">
+                <a href="producten.php">Producten</a>
+                <div class="dropdown-menu">
+                    <a href="producten.php?categorie=Laptops">Laptops</a>
+                    <a href="producten.php?categorie=Smartphones">Smartphones</a>
+                    <a href="producten.php?categorie=Tablets">Tablets</a>
+                </div>
+            </div>
 
-    <div class="right-section">
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
+            <a href="over.php">Over ons</a>
+            <a href="contact.php">Contact</a>
+            <a href="crud_gebruikers.php">Gebruikers beheren</a>
+            <a href="klacht.php">Klacht indienen</a>
+            <a href="review.php">Review</a>
         </div>
-
-        <a href="favoriet.php" class="icon">❤️</a>
-        <a href="winkelmand.php" class="icon">🛒</a>
-        <a href="login.php" class="icon">👤</a>
-    </div>
-</nav>
-
-<main>
-    <!-- Producten tonen -->
-    <div class="producten-grid">
-        <?php foreach ($producten as $product): ?>
-        <div class="product-kaart">
-            <img src="fotos/<?php echo htmlspecialchars($product['foto']); ?>" alt="<?php echo htmlspecialchars($product['naam']); ?>">
-            <h2><?php echo htmlspecialchars($product['naam']); ?></h2>
-            <p><?php echo htmlspecialchars($product['beschrijving']); ?></p>
-            <p><strong>€<?php echo number_format($product['prijs'], 2, ',', '.'); ?></strong></p>
-            <p>Categorie: <?php echo htmlspecialchars($product['categorie']); ?></p>
-            <a href="product_bewerken.php?id=<?php echo $product['product_id']; ?>">Bewerken</a>
-            <a href="product_verwijderen.php?id=<?php echo $product['product_id']; ?>" 
-               onclick="return confirm('Weet je het zeker?')">Verwijderen</a>
+        <div class="right-section">
+            <div class="search-container">
+                <input type="text" placeholder="Zoeken...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <a href="favoriet.php" class="icon">❤️</a>
+            <a href="winkelmand.php" class="icon">🛒</a>
+            <a href="login.php" class="icon">👤</a>
         </div>
-        <?php endforeach; ?>
-    </div>
+    </nav>
 
-    <a href="product_toevoegen.php">+ Nieuw product toevoegen</a>
-</main>
+    <main style="padding: 20px;">
 
-<?php include 'footer.php'; ?>
+        <h1>Producten</h1>
+
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>product_id</th>
+                <th>naam</th>
+                <th>categorie</th>
+                <th>prijs</th>
+                <th>voorraad</th>
+                <th>foto</th>
+                <th>acties</th>
+            </tr>
+
+            <?php foreach ($producten as $row): ?>
+                <tr>
+                    <td><?php echo $row['product_id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['naam'] ?? ''); ?></td>
+                    <td><?php echo htmlspecialchars($row['categorie'] ?? ''); ?></td>
+                    <td>€<?php echo $row['prijs'] ?? '0.00'; ?></td>
+                    <td><?php echo $row['voorraad'] ?? 0; ?></td>
+                    <td>
+                        <?php if (!empty($row['foto'])): ?>
+                            <img src="<?php echo htmlspecialchars($row['foto']); ?>" width="50">
+                        <?php else: ?>
+                            Geen foto
+                        <?php endif; ?>
+                    </td>
+
+                    <td>
+                        <a href="product_bewerken.php?product_id=<?php echo $row['product_id']; ?>">Bewerken</a> |
+                        <a href="product_verwijderen.php?product_id=<?php echo $row['product_id']; ?>" onclick="return confirm('Weet je het zeker?')">Verwijderen</a> |
+                        <a href="klacht.php?product_id=<?php echo $row['product_id']; ?>">Klacht indienen</a> |
+                        <a href="review.php?product_id=<?php echo $row['product_id']; ?>">Review</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+            <?php if (empty($producten)): ?>
+                <tr>
+                    <td colspan="7">Geen producten gevonden.</td>
+                </tr>
+            <?php endif; ?>
+
+        </table>
+
+        <br>
+        <a href="product_toevoegen.php">+ Nieuw product toevoegen</a>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Techzone. Alle rechten voorbehouden.</p>
+    </footer>
 
 </body>
+
 </html>

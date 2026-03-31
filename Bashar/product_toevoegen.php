@@ -1,23 +1,21 @@
 <?php
-include 'connect.php';
-
+include 'connect_pdo.php';
+// functie: product toevoegen
+// auteur: Bashar Al Aboud
 $melding = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $naam = $_POST['naam'];
-    $beschrijving = $_POST['beschrijving'];
-    $prijs = $_POST['prijs'];
-    $categorie = $_POST['categorie'];
-    $foto = $_POST['foto'];
-    $voorraad = $_POST['voorraad'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $naam        = trim($_POST['naam']);
+    $beschrijving = trim($_POST['beschrijving']);
+    $categorie   = $_POST['categorie'];
+    $prijs       = $_POST['prijs'];
+    $voorraad    = (int)$_POST['voorraad'];
+    $foto        = trim($_POST['foto']);
+    // opslaan van nieuw product in database
+    $stmt = $pdo->prepare("INSERT INTO producten (naam, beschrijving, categorie, prijs, voorraad, foto) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$naam, $beschrijving, $categorie, $prijs, $voorraad, $foto]);
 
-    $stmt = $conn->prepare("INSERT INTO producten (naam, beschrijving, prijs, categorie, foto, voorraad) 
-                           VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdssi", $naam, $beschrijving, $prijs, $categorie, $foto, $voorraad);
-    $stmt->execute();
-    $stmt->close();
-
-    $melding = 'Product succesvol toegevoegd!';
+    $melding = 'Product toegevoegd!';
 }
 ?>
 
@@ -32,66 +30,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-<div class="top-line">Gratis verzending bij bestellingen boven €100 | Snelle levering in heel Nederland</div>
-<nav>
-    <div class="navbar-left">
-        <a href="index.php" class="logo">TechZone</a>
-    </div>
-
-    <div class="menu">
-        <a href="index.php">Home</a>
-        <a href="producten.php">Producten</a>
-        <a href="over.php">Over ons</a>
-        <a href="contact.php">Contact</a>
-    </div>
-
-    <div class="right-section">
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
+    <nav>
+        <div class="menu">
+            <a class="logo" href="homepage.php">TechZone</a>
+            <a href="homepage.php">Home</a>
+            <a href="producten.php">Producten</a>
+            <a href="over.php">Over ons</a>
+            <a href="contact.php">Contact</a>
+            <a href="crud_gebruikers.php">Gebruikers beheren</a>
+            <a href="klacht.php">Klacht indienen</a>
         </div>
+        <div class="right-section">
+            <div class="search-container">
+                <input type="text" placeholder="Zoeken...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <a href="favoriet.php" class="icon">❤️</a>
+            <a href="winkelmand.php" class="icon">🛒</a>
+            <a href="login.php" class="icon">👤</a>
+        </div>
+    </nav>
 
-        <a href="favoriet.php" class="icon">❤️</a>
-        <a href="winkelmand.php" class="icon">🛒</a>
-        <a href="login.php" class="icon">👤</a>
-    </div>
-</nav>
+    <main style="padding: 20px;">
 
-    <main>
         <h1>Nieuw product toevoegen</h1>
 
-        <?php if ($melding != ''): ?>
+        <?php if ($melding !== ''): ?>
             <p style="color: green;"><?php echo $melding; ?></p>
         <?php endif; ?>
 
-        <form method="POST" action="product_toevoegen.php">
-            <label>Naam:</label>
-            <input type="text" name="naam" required><br>
+        <form method="POST">
 
-            <label>Beschrijving:</label>
-            <textarea name="beschrijving"></textarea><br>
+            <label>Naam:</label><br>
+            <input type="text" name="naam" required><br><br>
 
-            <label>Prijs (€):</label>
-            <input type="number" name="prijs" step="0.01" required><br>
+            <label>Beschrijving:</label><br>
+            <textarea name="beschrijving"></textarea><br><br>
 
-            <label>Categorie:</label>
+            <label>Categorie:</label><br>
             <select name="categorie">
-                <option value="Smartphone">Smartphone</option>
-                <option value="Laptop">Laptop</option>
-                <option value="Tablet">Tablet</option>
-            </select><br>
+                <option value="Laptops">Laptops</option>
+                <option value="Smartphones">Smartphones</option>
+                <option value="Tablets">Tablets</option>
+            </select><br><br>
 
-            <label>Foto (bestandsnaam):</label>
-            <input type="text" name="foto" placeholder="foto.jpg"><br>
+            <label>Prijs:</label><br>
+            <input type="number" name="prijs" step="0.01" required><br><br>
 
-            <label>Voorraad:</label>
-            <input type="number" name="voorraad" value="0"><br>
+            <label>Voorraad:</label><br>
+            <input type="number" name="voorraad" required><br><br>
+
+            <label>Foto (URL):</label><br>
+            <input type="text" name="foto"><br><br>
 
             <button type="submit">Toevoegen</button>
-            <a href="producten.php">Annuleren</a>
         </form>
+
+        <p><a href="producten.php">Terug naar producten</a></p>
+
     </main>
 
-    <?php include 'footer.php'; ?>
+    <footer class="footer">
+        <p>© 2026 Techzone. Alle rechten voorbehouden.</p>
+    </footer>
 
 </body>
 
