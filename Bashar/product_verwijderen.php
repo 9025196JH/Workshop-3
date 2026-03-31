@@ -1,12 +1,13 @@
 <?php
-include 'connect.php';
+include 'connect_pdo.php';
+// functie: product verwijderen
+// auteur: Bashar Al Aboud
+if (isset($_GET['product_id'])) {
+    $product_id = (int)$_GET['product_id'];
+    // verwijderen van product via id
+    $stmt = $pdo->prepare("DELETE FROM producten WHERE product_id = ?");
+    $stmt->execute([$product_id]);
+}
 
-$id = $_GET['id'];
-
-$stmt = $conn->prepare("DELETE FROM producten WHERE product_id = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$stmt->close();
-
-header('Location: producten.php');
+header("Location: producten.php");
 exit;
