@@ -15,6 +15,7 @@
         <a href="producten.php">Producten</a>
         <a href="over.php">Over ons</a>
         <a href="contact.php">Contact</a>
+    <a href="crud_gebruikers.php">Gebruikers beheren</a>
     </div>
 
     <div class="right-section">
