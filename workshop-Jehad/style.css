@@ -26,6 +26,16 @@ nav {
     font-size: 18px;
 }
 
+
+.menu .logo {
+    color: lightskyblue !important;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+
 /* Rechts: zoekbalk + iconen */
 .right-section {
     display: flex;
@@ -79,6 +89,11 @@ nav {
     font-size: 18px;
     margin-top: 40px;
 }
+
+
+
+
+
 
 
 

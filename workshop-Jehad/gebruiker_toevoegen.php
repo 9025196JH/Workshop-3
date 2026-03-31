@@ -17,7 +17,7 @@
     <button type="submit" name="opslaan">Opslaan</button>
 </form>
 
-<p><a href="gebruikers.php">Terug naar gebruikers</a></p>
+<p><a href="crud_gebruikers.php">Terug naar gebruikers</a></p>
 
 <?php
 if (isset($_POST['opslaan'])) {
