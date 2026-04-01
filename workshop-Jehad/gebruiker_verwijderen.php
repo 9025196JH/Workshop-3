@@ -1,5 +1,7 @@
 
 <?php include 'connect.php'; ?>
+// functie: gebruiker verwijderen
+// atheur: Jehad Abo Haijaa
 
 <?php
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;

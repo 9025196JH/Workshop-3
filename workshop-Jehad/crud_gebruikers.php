@@ -1,5 +1,7 @@
 
 <?php include 'connect.php'; ?>
+// functie: gebruiker 
+// atheur: Jehad Abo Haijaa
 <!DOCTYPE html>
 <html>
 <head>
