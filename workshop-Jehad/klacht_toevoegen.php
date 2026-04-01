@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: nieuwe klacht toevoegen
 // auteur: Bashar Al Aboud
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

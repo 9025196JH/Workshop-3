@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include 'connect_pdo.php';
+include 'connect.php';
 
 // functie: klacht toevoegen en tonen
 // auteur: Bashar Al Aboud

@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: klacht verwijderen
 // auteur: Bashar Al Aboud
 if (isset($_GET['klacht_id'])) {

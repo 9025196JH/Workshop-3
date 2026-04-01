@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: product bewerken
 // auteur: Bashar Al Aboud
 $product_id = isset($_GET['product_id']) ? (int)$_GET['product_id'] : 0;

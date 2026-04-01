@@ -1,6 +1,6 @@
 <?php
 
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: review toevoegen en tonen
 // auteur: Bashar Al Aboud
 $melding = '';

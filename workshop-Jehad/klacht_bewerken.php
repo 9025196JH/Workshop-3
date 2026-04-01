@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: klacht bewerken
 // auteur: Bashar Al Aboud
 $klacht_id = isset($_GET['klacht_id']) ? (int)$_GET['klacht_id'] : 0;

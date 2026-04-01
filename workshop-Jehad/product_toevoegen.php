@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: product toevoegen
 // auteur: Bashar Al Aboud
 $melding = '';

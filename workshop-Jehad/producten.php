@@ -1,5 +1,5 @@
 <?php
-include 'connect_pdo.php';
+include 'connect.php';
 // functie: producten overzicht tonen
 // auteur: Bashar Al Aboud
 $categorie = isset($_GET['categorie']) ? $_GET['categorie'] : '';
