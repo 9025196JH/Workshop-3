@@ -11,11 +11,13 @@
 <nav>
     <div class="menu">
         <a class="logo" href="homepage.php">TechZone</a>
-        <a href="homepage.php">Home</a>
-        <a href="producten.php">Producten</a>
-        <a href="over.php">Over ons</a>
-        <a href="contact.php">Contact</a>
-    <a href="crud_gebruikers.php">Gebruikers beheren</a>
+            <a href="homepage.php">Home</a>
+            <a href="producten.php">Producten</a>
+            <a href="over.php">Over ons</a>
+            <a href="contact.php">Contact</a>
+            <a href="crud_gebruikers.php">Gebruikers beheren</a>
+            <a href="klacht.php">Klacht indienen</a>
+            <a href="review.php">Review</a>
     </div>
 
     <div class="right-section">
