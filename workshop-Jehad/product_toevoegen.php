@@ -1,7 +1,7 @@
 <?php
 include 'connect.php';
 // functie: product toevoegen
-// auteur: Bashar Al Aboud
+
 $melding = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

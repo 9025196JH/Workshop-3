@@ -2,7 +2,6 @@
 
 include 'connect.php';
 // functie: review toevoegen en tonen
-// auteur: Bashar Al Aboud
 $melding = '';
 // verwerking van review formulier
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

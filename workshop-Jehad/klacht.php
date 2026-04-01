@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 include 'connect.php';
 
 // functie: klacht toevoegen en tonen
-// auteur: Bashar Al Aboud
+
 $melding = '';
 // verwerking van formulier (nieuwe klacht opslaan)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -91,6 +91,53 @@ nav {
 }
 
 
+/* Algemene tabel styling */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+/* Actie knoppen */
+.actie-knop {
+    padding: 6px 12px;
+    background: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.delete-knop {
+    padding: 6px 12px;
+    background: #d9534f;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.insert-knop {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #28a745;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+
 
 
 

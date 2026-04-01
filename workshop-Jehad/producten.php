@@ -1,7 +1,7 @@
 <?php
 include 'connect.php';
 // functie: producten overzicht tonen
-// auteur: Bashar Al Aboud
+
 $categorie = isset($_GET['categorie']) ? $_GET['categorie'] : '';
 // ophalen van producten (met of zonder categorie filter)
 if ($categorie !== '') {

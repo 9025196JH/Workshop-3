@@ -1,7 +1,6 @@
 <?php
 include 'connect.php';
 // functie: product verwijderen
-// auteur: Bashar Al Aboud
 if (isset($_GET['product_id'])) {
     $product_id = (int)$_GET['product_id'];
     // verwijderen van product via id
