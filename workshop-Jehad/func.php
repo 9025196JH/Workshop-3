@@ -1,10 +1,11 @@
+
 <?php
 // auteur: Jehad
 // functie: algemene functies tbv hergebruik
 
 include_once "con.php";
 
- function connectDb(){
+function connectDb(){
     $servername = SERVERNAME;
     $username   = USERNAME;
     $password   = PASSWORD;
@@ -19,93 +20,76 @@ include_once "con.php";
     catch(PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
     }
- }
+}
 
- 
- 
 function crudMain(){
 
-    $txt = "
-    <h1>Gebruikers</h1>
-    <a href='insert.php'>Nieuwe gebruiker toevoegen</a>
+    echo "
+    <h1>Leveranciers</h1>
+    <a href='toevoegen.php'>Nieuwe leverancier toevoegen</a>
     <br><br>";
-    echo $txt;
 
     $result = getData(CRUD_TABLE);
 
-    
     if (empty($result)) {
-        echo "<p>Geen gebruikers gevonden.</p>";
+        echo "<p>Geen leveranciers gevonden.</p>";
         return;
     }
 
     printCrudTabel($result);
 }
 
-
- 
- function getData($table){
+// ✅ goede getData()
+function getData($table){
     $conn = connectDb();
-
     $sql = "SELECT * FROM $table";
     $query = $conn->prepare($sql);
     $query->execute();
-
     return $query->fetchAll();
- }
+}
 
- 
- function getRecord($id){
+// ✅ goede getRecord()
+function getRecord($id){
     $conn = connectDb();
 
-    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE inloggen_id = :id";
+    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE leverancier_id = :id";
     $query = $conn->prepare($sql);
     $query->execute([':id' => $id]);
 
     return $query->fetch();
- }
+}
 
- 
- function printCrudTabel($result){
+// ✅ correcte tabel met juiste ID
+function printCrudTabel($result){
     
-    $table = "<table>";
+    $table = "<table border='1'>";
 
-    // Print header table
+    // header
     $headers = array_keys($result[0]);
     $table .= "<tr>";
     foreach($headers as $header){
-        $table .= "<th>" . $header . "</th>";   
+        $table .= "<th>" . $header . "</th>";
     }
-
-    // Extra kolommen voor actie-knoppen
     $table .= "<th colspan=2>Actie</th>";
     $table .= "</tr>";
 
-    // Print elke rij
+    // content
     foreach ($result as $row) {
-        
+
         $table .= "<tr>";
 
-        // Print elke kolom
         foreach ($row as $cell) {
-            $table .= "<td>" . $cell . "</td>";  
+            $table .= "<td>" . $cell . "</td>";
         }
 
-        // ✅ juiste ID gebruiken
-        $id = $row['inloggen_id'];
-        
-        // Wijzig knopje
+        $id = $row['leverancier_id'];
+
         $table .= "<td>
-            <form method='post' action='update.php?id=$id'>       
-                <button>Wzg</button>     
-            </form>
+            <a href='wijzegen.php?id=$id'>Wzg</a>
         </td>";
 
-        // Delete knopje
         $table .= "<td>
-            <form method='post' action='delete.php?id=$id'>       
-                <button>Verwijder</button>     
-            </form>
+            <a href='verwijderen.php?id=$id'>Verwijder</a>
         </td>";
 
         $table .= "</tr>";
@@ -115,53 +99,52 @@ function crudMain(){
 
     echo $table;
 }
- 
- 
- 
- function updateRecord($row){
+
+// ✅ volledig goede UPDATE
+function updateRecord($row){
 
     $conn = connectDb();
 
     $sql = "UPDATE " . CRUD_TABLE . "
             SET 
                 naam = :naam,
-                bedrijfsnaam = :email,
-                telefoonnummer = :wachtwoord
+                bedrijfsnaam = :bedrijfsnaam,
+                telefoonnummer = :telefoonnummer
             WHERE leverancier_id = :leverancier_id";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->execute([
-        ':naam'        => $row['naam'],
-        ':bedrijfsnaam'       => $row['bedrijfsnaam'],
+        ':naam'            => $row['naam'],
+        ':bedrijfsnaam'    => $row['bedrijfsnaam'],
         ':telefoonnummer'  => $row['telefoonnummer'],
-        ':leverancier_id' => $row['leverancier_id']
+        ':leverancier_id'  => $row['leverancier_id']
     ]);
 
-    return ($stmt->rowCount() == 1);
- }
+    return ($stmt->rowCount() >= 0);
+}
 
- 
- function insertRecord($post){
+// ✅ volledig goede INSERT
+function insertRecord($post){
     $conn = connectDb();
 
-    $sql = "INSERT INTO gebruikers 
-            (naam, bedrijfsnaam, telefoonnummer)
+    $sql = "INSERT INTO " . CRUD_TABLE . 
+           " (naam, bedrijfsnaam, telefoonnummer)
             VALUES (:naam, :bedrijfsnaam, :telefoonnummer)";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->execute([
-        ':naam'        => $post['naam'],
-        ':bedrijsnaam'       => $post['bedrijsnaam'],
+        ':naam'            => $post['naam'],
+        ':bedrijfsnaam'    => $post['bedrijfsnaam'],
         ':telefoonnummer'  => $post['telefoonnummer']
     ]);
 
     return ($stmt->rowCount() == 1);
 }
 
- 
- function deleteRecord($id){
+// ✅ DELETE is goed
+function deleteRecord($id){
 
     $conn = connectDb();
     
@@ -173,6 +156,6 @@ function crudMain(){
     $stmt->execute([':id' => $id]);
 
     return ($stmt->rowCount() == 1);
- }
+}
 
 ?>

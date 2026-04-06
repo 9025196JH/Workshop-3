@@ -1,58 +1,55 @@
 
 <?php
-// functie: update Brouwer
-// auteur: Vul hier je naam in
+require_once('func.php');
 
-require_once('functions.php');
+// Als er op de wijzig-knop is gedrukt
+if (isset($_POST['btn_wzg'])) {
 
-// Test of er op de wijzig-knop is gedrukt 
-if(isset($_POST['btn_wzg'])){
-
-    // test of update gelukt is
-    if(updateRecord($_POST) == true){
-        echo "<script>alert('Gebruiker is gewijzigd')</script>";
+    if (updateRecord($_POST) == true) {
+        echo "<script>alert('Leverancier is gewijzigd')</script>";
     } else {
-        echo '<script>alert("Gebruiker is NIET gewijzigd")</script>';
+        echo "<script>alert('Leverancier is NIET gewijzigd')</script>";
     }
 }
 
-// Test of id is meegegeven in de URL
-if(isset($_GET['id'])){  
-    // Haal alle info van de betreffende id $_GET['id']
+// Check of ID bestaat
+if (isset($_GET['id'])) {
+    
     $id = $_GET['id'];
     $row = getRecord($id);
-
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Wijzig Brouwer</title>
+  <title>Wijzig Leverancier</title>
 </head>
 <body>
-  <h2>Wijzig Brouwer</h2>
-  <form method="post">
-    
-    <input type="hidden" name="leverancier_id" value="<?php echo $row['inloggen_id']; ?>"><br>
 
-    <label for="leverancier_id">leverancier_id</label>
-    <input type="text" id="leverancier_id" name="leverancier_id" required value="<?php echo $row['leverancier_id']; ?>"><br>
+  <h2>Wijzig Leverancier</h2>
+
+  <form method="post">
+
+    <!-- Alleen verborgen ID -->
+    <input type="hidden" name="leverancier_id" value="<?php echo $row['leverancier_id']; ?>">
 
     <label for="naam">Naam:</label>
     <input type="text" id="naam" name="naam" required value="<?php echo $row['naam']; ?>"><br>
 
-    <label for="bedrijfsnaam">Bedrijfs:</label>
+    <label for="bedrijfsnaam">Bedrijfsnaam:</label>
     <input type="text" id="bedrijfsnaam" name="bedrijfsnaam" required value="<?php echo $row['bedrijfsnaam']; ?>"><br>
 
-    <label for="wachtwoord">Telefoonnummer:</label>
+    <label for="telefoonnummer">Telefoonnummer:</label>
     <input type="text" id="telefoonnummer" name="telefoonnummer" required value="<?php echo $row['telefoonnummer']; ?>"><br>
 
     <input type="submit" name="btn_wzg" value="Wijzig">
   </form>
+
   <br><br>
-  <a href='crud_gebruikers.php'>Home</a>
+  <a href='crud_leverancier.php'>Home</a>
+
 </body>
 </html>
 

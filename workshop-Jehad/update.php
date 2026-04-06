@@ -29,10 +29,10 @@ if(isset($_GET['id'])){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Wijzig Brouwer</title>
+  <title>Wijzig Gebruiker</title>
 </head>
 <body>
-  <h2>Wijzig Brouwer</h2>
+  <h2>Wijzig Gberuiker</h2>
   <form method="post">
     
     <input type="hidden" name="inloggen_id" value="<?php echo $row['inloggen_id']; ?>"><br>
