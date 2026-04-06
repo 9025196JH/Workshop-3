@@ -17,6 +17,7 @@
             <a href="over.php">Over ons</a>
             <a href="contact.php">Contact</a>
             <a href="crud_gebruikers.php">Gebruikers beheren</a>
+            <a href="crud_leverancier.php">Leveranciers beheren</a>
             <a href="klacht.php">Klacht indienen</a>
             <a href="review.php">Review</a>
     </div>
