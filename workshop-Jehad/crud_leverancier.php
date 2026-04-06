@@ -9,11 +9,11 @@
 <body>
 
     <?php
-    // functie: Programma CRUD Brouwer
+    // functie: Programma CRUD Leverancier
     // auteur Jehad Abo Haijaa  
 
     // Initialisatie
-    include 'functions.php';
+    include 'func.php';
 
     // Main
 

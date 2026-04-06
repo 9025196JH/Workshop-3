@@ -2,13 +2,13 @@
 // auteur: Jehad
 // functie: algemene functies tbv hergebruik
 
-include_once "config.php";
+include_once "con.php";
 
  function connectDb(){
     $servername = SERVERNAME;
     $username   = USERNAME;
     $password   = PASSWORD;
-    $dbname     = DATABASE;   // ✅ moet 'techzone' zijn in config.php
+    $dbname     = DATABASE;   
        
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -21,9 +21,7 @@ include_once "config.php";
     }
  }
 
- //------------------------------------------------------------
- // CRUD Menu
- //------------------------------------------------------------
+ 
  
 function crudMain(){
 
@@ -45,9 +43,7 @@ function crudMain(){
 }
 
 
- //------------------------------------------------------------
- // Alle data uit tabel ophalen
- //------------------------------------------------------------
+ 
  function getData($table){
     $conn = connectDb();
 
@@ -58,9 +54,7 @@ function crudMain(){
     return $query->fetchAll();
  }
 
- //------------------------------------------------------------
- // Eén record ophalen op ID (inloggen_id)
- //------------------------------------------------------------
+ 
  function getRecord($id){
     $conn = connectDb();
 
@@ -71,9 +65,7 @@ function crudMain(){
     return $query->fetch();
  }
 
- //------------------------------------------------------------
- // HTML Tabel printen
- //------------------------------------------------------------
+ 
  function printCrudTabel($result){
     
     $table = "<table>";
@@ -123,9 +115,9 @@ function crudMain(){
 
     echo $table;
 }
- //------------------------------------------------------------
- // UPDATE record
- //------------------------------------------------------------
+ 
+ 
+ 
  function updateRecord($row){
 
     $conn = connectDb();
@@ -133,51 +125,48 @@ function crudMain(){
     $sql = "UPDATE " . CRUD_TABLE . "
             SET 
                 naam = :naam,
-                email = :email,
-                wachtwoord = :wachtwoord
-            WHERE inloggen_id = :inloggen_id";
+                bedrijfsnaam = :email,
+                telefoonnummer = :wachtwoord
+            WHERE leverancier_id = :leverancier_id";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->execute([
         ':naam'        => $row['naam'],
-        ':email'       => $row['email'],
-        ':wachtwoord'  => $row['wachtwoord'],
-        ':inloggen_id' => $row['inloggen_id']
+        ':bedrijfsnaam'       => $row['bedrijfsnaam'],
+        ':telefoonnummer'  => $row['telefoonnummer'],
+        ':leverancier_id' => $row['leverancier_id']
     ]);
 
     return ($stmt->rowCount() == 1);
  }
 
- //------------------------------------------------------------
- // INSERT record
+ 
  function insertRecord($post){
     $conn = connectDb();
 
     $sql = "INSERT INTO gebruikers 
-            (naam, email, wachtwoord)
-            VALUES (:naam, :email, :wachtwoord)";
+            (naam, bedrijfsnaam, telefoonnummer)
+            VALUES (:naam, :bedrijfsnaam, :telefoonnummer)";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->execute([
         ':naam'        => $post['naam'],
-        ':email'       => $post['email'],
-        ':wachtwoord'  => $post['wachtwoord']
+        ':bedrijsnaam'       => $post['bedrijsnaam'],
+        ':telefoonnummer'  => $post['telefoonnummer']
     ]);
 
     return ($stmt->rowCount() == 1);
 }
 
- //------------------------------------------------------------
- // DELETE record
- //------------------------------------------------------------
+ 
  function deleteRecord($id){
 
     $conn = connectDb();
     
     $sql = "DELETE FROM " . CRUD_TABLE . " 
-            WHERE inloggen_id = :id";
+            WHERE leverancier_id = :id";
 
     $stmt = $conn->prepare($sql);
 

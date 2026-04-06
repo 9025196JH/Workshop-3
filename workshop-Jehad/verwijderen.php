@@ -1,7 +1,7 @@
 <?php
 // auteur: Vul hier je naam in
 // functie: verwijder een bier op basis van de id
-include 'functions.php';
+include 'func.php';
 
 // Haal bier uit de database
 if(isset($_GET['id'])){
