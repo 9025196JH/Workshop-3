@@ -5,7 +5,7 @@
 
 echo "<h1>Nieuwe leverancier toevoegen</h1>";
 
-require_once('functions.php');
+require_once('func.php');
      
 // Test of er op de insert-knop is gedrukt 
 if(isset($_POST['btn_ins'])){
