@@ -39,7 +39,30 @@ $nm = ($m == 'klant') ? 'admin' : 'klant';
             <input type="text" name="q" placeholder="Zoeken...">
             <button type="submit" style="background:none; border:none; cursor:pointer;">🔍</button>
         </form>
-        <span class="icon">❤️</span><span class="icon">🛒</span>
+        <a href="favorieten.php" style="text-decoration: none; position: relative;">
+            <span class="icon">❤️</span>
+            <?php
+            $fav_aantal = isset($_SESSION['favorieten']) ? count($_SESSION['favorieten']) : 0;
+            if ($fav_aantal > 0) {
+                echo '<span style="position: absolute; top: -8px; right: -8px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">' . $fav_aantal . '</span>';
+            }
+            ?>
+        </a>
+        <a href="winkelmandje.php" style="text-decoration: none; position: relative;">
+            <span class="icon">🛒</span>
+            <?php
+            $mand_aantal = 0;
+            if (isset($_SESSION['winkelmandje'])) {
+                foreach ($_SESSION['winkelmandje'] as $item) {
+                    $mand_aantal += $item['aantal'];
+                }
+            }
+            if ($mand_aantal > 0) {
+                echo '<span style="position: absolute; top: -8px; right: -8px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">' . $mand_aantal . '</span>';
+            }
+            ?>
+        </a>
+
         
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="dropdown" style="display: inline-block;">

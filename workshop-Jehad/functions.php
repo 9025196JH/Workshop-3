@@ -210,17 +210,20 @@ function printTabel($result, $id_kolom, $edit_url, $delete_url, $hide = [])
     echo "</table>";
 }
 
-// --- LOGIN FUNCTIONS ---
+// --- Jehad LOGIN FUNCTIONS ---
 
 function checkLogin($email, $wachtwoord)
 {
-    $conn = connectDb();
-    $stmt = $conn->prepare("SELECT * FROM " . TABEL_GEBRUIKERS . " WHERE email = :email");
-    $stmt->execute([':email' => $email]);
-    $user = $stmt->fetch();
+    // Vaste inloggegevens in de code
+    $validEmail = 'test@techzone.nl';
+    $validPassword = 'test123';
     
-    if ($user && password_verify($wachtwoord, $user['wachtwoord'])) {
-        return $user;
+    if ($email === $validEmail && $wachtwoord === $validPassword) {
+        return [
+            'inloggen_id' => 1,
+            'naam' => 'Test Gebruiker',
+            'email' => $validEmail
+        ];
     }
     return false;
 }

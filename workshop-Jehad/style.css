@@ -132,6 +132,14 @@ nav {
     background-color: #ff6b81;
 }
 
+.favoriet-btn.actief {
+    background-color: #2ed573;
+}
+
+.favoriet-btn.actief:hover {
+    background-color: #7bed9f;
+}
+
 .product-card {
     background: white;
     border: 1px solid #ddd;
@@ -308,4 +316,124 @@ nav {
 
 .btn-login:hover {
     background-color: #0056b3;
+}
+
+/* Winkelmandje Styles */
+.mand-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.mand-btn:hover {
+    background-color: #218838;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.mand-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.mand-popup h3 {
+    margin-top: 0;
+}
+
+.mand-popup select, .mand-popup input, .mand-popup button {
+    margin: 10px 5px;
+}
+
+.mand-popup input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+/* Winkelmandje pagina Styles */
+.mandje-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.mandje-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.mandje-item h4 {
+    margin: 0;
+}
+
+.mandje-totaal {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.bestel-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 20px auto;
+}
+
+.bestel-btn:hover {
+    background-color: #0056b3;
+}
+
+.bedankt {
+    text-align: center;
+    color: green;
+    font-size: 1.5em;
+    margin: 50px 0;
+}
+
+.leeg-mandje {
+    text-align: center;
+    margin: 50px 0;
 }
