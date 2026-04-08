@@ -39,6 +39,18 @@ $nm = ($m == 'klant') ? 'admin' : 'klant';
             <input type="text" name="q" placeholder="Zoeken...">
             <button type="submit" style="background:none; border:none; cursor:pointer;">🔍</button>
         </form>
-        <span class="icon">❤️</span><span class="icon">🛒</span><span class="icon">👤</span>
+        <span class="icon">❤️</span><span class="icon">🛒</span>
+        
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <div class="dropdown" style="display: inline-block;">
+                <span class="icon" style="cursor: pointer;">👤</span>
+                <div class="dropdown-content">
+                    <a href="#">Hallo, <?php echo htmlspecialchars($_SESSION['user_naam']); ?></a>
+                    <a href="logout.php">Uitloggen</a>
+                </div>
+            </div>
+        <?php else: ?>
+            <a href="login.php" style="text-decoration: none; font-size: 20px;">👤</a>
+        <?php endif; ?>
     </div>
 </nav>

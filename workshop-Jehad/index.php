@@ -7,7 +7,11 @@
 </head>
 
 <body>
-    <?php include 'nav.php'; ?>
+    <?php 
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    include 'nav.php'; 
+    ?>
+
 
     <main>
         <h1 class="welcome">Welkom bij Techzone!</h1>
