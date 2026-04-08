@@ -209,3 +209,28 @@ function printTabel($result, $id_kolom, $edit_url, $delete_url, $hide = [])
     }
     echo "</table>";
 }
+
+// --- LOGIN FUNCTIONS ---
+
+function checkLogin($email, $wachtwoord)
+{
+    $conn = connectDb();
+    $stmt = $conn->prepare("SELECT * FROM " . TABEL_GEBRUIKERS . " WHERE email = :email");
+    $stmt->execute([':email' => $email]);
+    $user = $stmt->fetch();
+    
+    if ($user && password_verify($wachtwoord, $user['wachtwoord'])) {
+        return $user;
+    }
+    return false;
+}
+
+
+function logout()
+{
+    session_start();
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+
