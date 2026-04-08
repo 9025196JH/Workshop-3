@@ -22,19 +22,36 @@ function getData($table)
     $stmt->execute();
     return $stmt->fetchAll();
 }
-
-// --- JEHAD COMPATIBILITY FUNCTIONS (Om errors te voorkomen) ---
-
-function crudMain()
+// --- LEVERANCIERS FUNCTIES (JEHAD) ---
+function getLeverancier($id)
 {
-    echo "<h1>Gebruikers beheren</h1>";
-    echo "<a href='insert.php'>Nieuwe gebruiker toevoegen</a><br><br>";
-    $result = getData(CRUD_TABLE);
-    if (!empty($result)) {
-        printCrudTabel($result);
-    } else {
-        echo "Geen gebruikers gevonden.";
-    }
+    $conn = connectDb();
+    $stmt = $conn->prepare("SELECT * FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id");
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch();
+}
+
+function insertLeverancier($post)
+{
+    $conn = connectDb();
+    $sql = "INSERT INTO " . TABEL_LEVERANCIERS . " (naam, bedrijfsnaam, telefoonnummer) VALUES (:naam, :bedrijfsnaam, :telefoonnummer)";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute([':naam' => $post['naam'], ':bedrijfsnaam' => $post['bedrijfsnaam'], ':telefoonnummer' => $post['telefoonnummer']]);
+}
+
+function updateLeverancier($post)
+{
+    $conn = connectDb();
+    $sql = "UPDATE " . TABEL_LEVERANCIERS . " SET naam=:naam, bedrijfsnaam=:bedrijfsnaam, telefoonnummer=:telefoonnummer WHERE leverancier_id=:id";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute([':naam' => $post['naam'], ':bedrijfsnaam' => $post['bedrijfsnaam'], ':telefoonnummer' => $post['telefoonnummer'], ':id' => $post['leverancier_id']]);
+}
+
+function deleteLeverancier($id)
+{
+    $conn = connectDb();
+    $stmt = $conn->prepare("DELETE FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id");
+    return $stmt->execute([':id' => $id]);
 }
 
 function printCrudTabel($result)

@@ -31,7 +31,6 @@ $nm = ($m == 'klant') ? 'admin' : 'klant';
             <a href="crud_reviews.php">Reviews beheren</a>
         <?php endif; ?>
 
-        <a href="crud_gebruikers.php">Gebruikers beheren</a>
         <a href="crud_leverancier.php">Leveranciers beheren</a>
     </div>
 
