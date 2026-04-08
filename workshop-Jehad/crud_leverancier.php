@@ -13,7 +13,7 @@
     // auteur Jehad Abo Haijaa  
 
     // Initialisatie
-    include 'func.php';
+    include 'functions.php';
 
     // Main
 
