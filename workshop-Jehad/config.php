@@ -12,5 +12,8 @@ define("TABEL_LEVERANCIERS", "leveren");
 define("TABEL_PRODUCTEN",    "producten");
 define("TABEL_KLACHTEN",     "klachten");
 define("TABEL_REVIEWS",      "reviews");
+ 
 define("TABEL_GEBRUIKERS",   "gebruikers");
 
+
+ 
