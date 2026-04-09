@@ -9,17 +9,25 @@ if (!isset($_SESSION['winkelmandje'])) {
     $_SESSION['winkelmandje'] = [];
 }
 
-$mandje = $_SESSION['winkelmandje'];
-$totaal = 0;
-foreach ($mandje as $item) {
-    $totaal += $item['prijs'] * $item['aantal'];
-}
-
 // Als bestellen is aangeklikt
 if (isset($_POST['bestellen'])) {
     // Leeg mandje na bestelling
     $_SESSION['winkelmandje'] = [];
     $besteld = true;
+}
+
+// Als verwijderen is aangeklikt
+if (isset($_POST['verwijder'])) {
+    $product_id = $_POST['product_id'];
+    if (isset($_SESSION['winkelmandje'][$product_id])) {
+        unset($_SESSION['winkelmandje'][$product_id]);
+    }
+}
+
+$mandje = $_SESSION['winkelmandje'];
+$totaal = 0;
+foreach ($mandje as $item) {
+    $totaal += $item['prijs'] * $item['aantal'];
 }
 ?>
 <!DOCTYPE html>
@@ -58,6 +66,10 @@ if (isset($_POST['bestellen'])) {
                     </div>
                     <div>
                         <strong>€<?php echo number_format($item['prijs'] * $item['aantal'], 2, ',', '.'); ?></strong>
+                        <form method="post" style="display: inline;">
+                            <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+                            <button type="submit" name="verwijder" class="verwijder-btn">Verwijder</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -426,6 +426,21 @@ nav {
     background-color: #0056b3;
 }
 
+.verwijder-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.verwijder-btn:hover {
+    background-color: #c82333;
+}
+
 .bedankt {
     text-align: center;
     color: green;
