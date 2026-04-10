@@ -1,5 +1,6 @@
 <?php
 // Auteur: Bashar
+// Functie: Klachtpagina
 include_once 'functions.php';
 $producten = getData('producten');
 $melding = '';
