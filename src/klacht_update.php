@@ -1,5 +1,6 @@
 <?php
 // Auteur: Bashar
+// Functie: Bijvoorbeeld een reactie op een klacht bewerken
 include_once 'functions.php';
 $producten = getData('producten');
 
@@ -20,13 +21,11 @@ if (isset($_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <title>Klacht Beantwoorden</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <?php include 'nav.php'; ?>
 
@@ -63,5 +62,4 @@ if (isset($_GET['id'])) {
     <a href="crud_klachten.php">Terug naar overzicht</a>
     <?php include 'footer.php'; ?>
 </body>
-
 </html>
