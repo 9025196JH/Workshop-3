@@ -8,6 +8,8 @@
 
 <body>
     <?php 
+// Auteur: Bashar en Jehad
+// Functie: Homepagina van de webshop techzone
     if (session_status() === PHP_SESSION_NONE) session_start();
     include 'nav.php'; ?>
 
