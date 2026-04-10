@@ -1,5 +1,5 @@
 <?php
-// Auteur: Bashar
+// Auteur: Bashar Al Aboud
 // Functie: (CRUD) Bijvoorbeeld een reactie toevoegen op een klacht van een klant
 include_once 'functions.php';
 
