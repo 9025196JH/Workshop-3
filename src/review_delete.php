@@ -1,6 +1,6 @@
 <?php
 // Auteur: Bashar Al Aboud
-// Functie: Review verwijderen
+// Functie: (CRUD) Review verwijderen
 
 include_once 'functions.php';
 
