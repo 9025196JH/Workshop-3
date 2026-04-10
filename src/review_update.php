@@ -1,6 +1,6 @@
 <?php
 // Auteur: Bashar
-// Functie: Review bewerken en beantwoorden in database
+// Functie: (CRUD) Review bewerken en beantwoorden bijvoorbeeld op een klant
 include_once 'functions.php';
 
 if (isset($_POST['btn_upd'])) {
@@ -20,7 +20,6 @@ if (isset($_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <title>Review Beantwoorden</title>
@@ -60,5 +59,4 @@ if (isset($_GET['id'])) {
     <a href="crud_reviews.php">Terug naar overzicht</a>
     <?php include 'footer.php'; ?>
 </body>
-
 </html>
