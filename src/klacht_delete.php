@@ -1,7 +1,6 @@
 <?php
 // Auteur: Bashar
-// Functie: klacht verwijderen
-
+// Functie: (CRUD) klacht verwijderen
 include_once 'functions.php';
 
 if (isset($_GET['id'])) {
