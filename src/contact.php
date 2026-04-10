@@ -9,7 +9,7 @@
 <body>
     <?php
     // Auteur: Bashar
-    // Functie: Contactpagina met bedrijfsinformatie
+    // Functie: Contactpagina
 
     include 'nav.php'; ?>
     <div class="container form-box" style="width: 70%; margin-top: 30px;">
