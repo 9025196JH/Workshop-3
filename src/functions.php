@@ -70,7 +70,7 @@ function printCrudTabel($result)
     echo "</table>";
 }
 
-// --- BASHAR'S PRODUCTEN FUNCTIES ---
+// Bashar producten functies
 
 function getProduct($id)
 {
@@ -103,7 +103,7 @@ function deleteProduct($id)
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S KLACHTEN FUNCTIES ---
+// Bashar Klachten Functies
 
 function getKlacht($id)
 {
@@ -136,7 +136,7 @@ function deleteKlacht($id)
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S REVIEWS FUNCTIES ---
+// Bashar Reviews Functies
 
 function getReview($id)
 {
@@ -169,7 +169,7 @@ function deleteReview($id)
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S UTILS ---
+// Bashar Utils
 
 function searchProducten($q, $cat)
 {
