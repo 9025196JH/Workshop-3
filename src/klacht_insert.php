@@ -1,8 +1,8 @@
 <?php
 // Auteur: Bashar
+// Functie: (CRUD) Bijvoorbeeld een reactie toevoegen op een klacht van een klant
 include_once 'functions.php';
 
-// Haal alle producten op voor de selectie-lijst
 $producten = getData('producten');
 
 if (isset($_POST['btn_ins'])) {
@@ -26,7 +26,7 @@ if (isset($_POST['btn_ins'])) {
     <h1>Nieuwe Klacht Toevoegen</h1>
 
     <form method="post">
-        <!-- Selecteer product -->
+
         <label class="admin-label">Product:</label>
         <select name="product_id" required>
             <option value="">-- Kies een product --</option>
