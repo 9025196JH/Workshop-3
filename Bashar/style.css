@@ -1,9 +1,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
 }
 
-/* Navigatiebalk */
 nav {
     background: gray;
     color: white;
@@ -13,18 +13,17 @@ nav {
     justify-content: space-between;
 }
 
-/* Menu links */
 .menu {
     display: flex;
-    gap: 25px;
+    gap: 20px;
+    align-items: center;
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
 }
-
 
 .menu .logo {
     color: lightskyblue !important;
@@ -34,15 +33,12 @@ nav {
     margin-right: 20px;
 }
 
-
-/* Rechts: zoekbalk + iconen */
 .right-section {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* Zoekbalk */
 .search-container {
     display: flex;
     align-items: center;
@@ -55,57 +51,199 @@ nav {
     border: none;
     outline: none;
     padding: 5px;
+    width: 120px;
 }
 
-.search-icon {
-    margin-left: 5px;
-    font-size: 18px;
-}
-
-/* Iconen (hartje, winkelmandje, poppetje) */
 .icon {
-    font-size: 22px;
+    font-size: 20px;
     color: white;
-    cursor: pointer;
     text-decoration: none;
 }
 
-/* Welkomtekst */
-.welcome {
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
     padding: 20px;
 }
 
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    padding: 20px;
+}
 
-
-
-/* Footer */
-.footer {
-    background: #4a4a4a;
-    color: white;
+.product-kaart {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    width: 250px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 25px 0;
+    transition: transform 0.2s;
+}
+
+.product-kaart:hover {
+    transform: translateY(-5px);
+}
+
+.product-foto-bak {
     width: 100%;
-    font-size: 18px;
-    margin-top: 40px;
+    height: 180px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.product-foto-bak img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-info h3 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e44d26;
+    margin-bottom: 15px;
+}
+
+.favoriet-btn {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.favoriet-btn:hover {
+    background-color: #ff6b81;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .dropdown {
     position: relative;
+    display: inline-block;
 }
 
-.dropdown-menu {
+.dropdown-content {
     display: none;
     position: absolute;
-    background: gray;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black !important;
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.pagina-midden {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+}
+
+.midden-form {
+    background: white;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.midden-form input,
+.midden-form textarea,
+.midden-form select {
+    margin-bottom: 15px;
     padding: 10px;
-    top: 30px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.dropdown-menu a {
-    display: block;
-    margin-bottom: 5px;
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: white;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: aquamarine;
+}
+
+.admin-table th,
+.admin-table td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+.admin-table th {
+    background: grey;
+    color: white;
+}
+
+.form-box {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.admin-label {
+    display: inline-block;
+    background: #00ffff;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.footer {
+    background: #4a4a4a;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
 }

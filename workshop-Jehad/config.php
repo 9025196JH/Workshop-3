@@ -1,12 +1,19 @@
 <?php
-// auteur: Vul hier je naam in
-// functie: configuratiebestand
+// Auteur: Bashar & Jehad
+// Functie: Configuratie TechZone
 
-define("DATABASE", "techzone");
 define("SERVERNAME", "localhost");
-define("USERNAME", "root");
-define("PASSWORD", "");
+define("USERNAME",   "root");
+define("PASSWORD",   "");
+define("DATABASE",   "techzone");
 
-define("CRUD_TABLE", "gebruikers");
 
-?>
+define("TABEL_LEVERANCIERS", "leveren");
+define("TABEL_PRODUCTEN",    "producten");
+define("TABEL_KLACHTEN",     "klachten");
+define("TABEL_REVIEWS",      "reviews");
+ 
+define("TABEL_GEBRUIKERS",   "gebruikers");
+
+
+ 
