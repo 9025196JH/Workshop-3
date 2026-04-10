@@ -9,23 +9,12 @@ if (!isset($_SESSION['winkelmandje'])) {
     $_SESSION['winkelmandje'] = [];
 }
 
-<<<<<<< HEAD
-$mandje = $_SESSION['winkelmandje'];
-$totaal = 0;
-foreach ($mandje as $item) {
-    $totaal += $item['prijs'] * $item['aantal'];
-}
-
-=======
->>>>>>> 3aecd663bc47c9cc36627c4c2e18ae7d760dab78
 // Als bestellen is aangeklikt
 if (isset($_POST['bestellen'])) {
     // Leeg mandje na bestelling
     $_SESSION['winkelmandje'] = [];
     $besteld = true;
 }
-<<<<<<< HEAD
-=======
 
 // Als verwijderen is aangeklikt
 if (isset($_POST['verwijder'])) {
@@ -40,7 +29,6 @@ $totaal = 0;
 foreach ($mandje as $item) {
     $totaal += $item['prijs'] * $item['aantal'];
 }
->>>>>>> 3aecd663bc47c9cc36627c4c2e18ae7d760dab78
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -78,13 +66,10 @@ foreach ($mandje as $item) {
                     </div>
                     <div>
                         <strong>€<?php echo number_format($item['prijs'] * $item['aantal'], 2, ',', '.'); ?></strong>
-<<<<<<< HEAD
-=======
                         <form method="post" style="display: inline;">
                             <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                             <button type="submit" name="verwijder" class="verwijder-btn">Verwijder</button>
                         </form>
->>>>>>> 3aecd663bc47c9cc36627c4c2e18ae7d760dab78
                     </div>
                 </div>
             <?php endforeach; ?>

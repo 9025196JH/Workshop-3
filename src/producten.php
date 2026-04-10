@@ -1,7 +1,5 @@
 <?php
-HEAD=======
 // Auteur: Bashar en Bashar
->>>>>>> 3aecd663bc47c9cc36627c4c2e18ae7d760dab78
 // Functie: Producten pagina
 session_start();
 include_once 'functions.php';
