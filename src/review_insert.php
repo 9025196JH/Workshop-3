@@ -1,7 +1,6 @@
 <?php
 // Auteur: Bashar
-// Functie: Review toevoegen aan database
-
+// Functie: Review toevoegen bijvoorbeeld een reactie toevoegen op een review van een klant
 include_once 'functions.php';
 
 if (isset($_POST['btn_ins'])) {
@@ -14,13 +13,11 @@ if (isset($_POST['btn_ins'])) {
 ?>
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <title>Review Toevoegen</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <?php include 'nav.php'; ?>
 
@@ -44,11 +41,8 @@ if (isset($_POST['btn_ins'])) {
 
         <input type="submit" name="btn_ins" value="Insert">
     </form>
-
     <br>
     <a href="crud_reviews.php">Terug naar overzicht</a>
-
     <?php include 'footer.php'; ?>
 </body>
-
 </html>
