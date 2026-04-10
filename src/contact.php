@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <title>Contact TechZone</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <?php
     // Auteur: Bashar
     // Functie: Contactpagina
-
     include 'nav.php'; ?>
     <div class="container form-box" style="width: 70%; margin-top: 30px;">
         <h1>Contact</h1>
@@ -23,5 +20,4 @@
     </div>
     <?php include 'footer.php'; ?>
 </body>
-
 </html>
