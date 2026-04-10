@@ -1,5 +1,5 @@
 <?php
-// Auteur: Bashar
+// Auteur: Bashar en Bashar
 // Functie: Producten pagina
 session_start();
 include_once 'functions.php';
