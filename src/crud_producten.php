@@ -1,6 +1,6 @@
 <?php
 // Auteur: Bashar
-// Functie: Producten beheren
+// Functie: (CRUD) Producten beheren
 include 'functions.php';
 $producten = getData("producten");
 ?>
@@ -19,7 +19,6 @@ $producten = getData("producten");
         <h1>Producten Beheren</h1>
         <a href="product_insert.php" style="background:green; color:white; padding:10px; text-decoration:none;">Nieuw Product Toevoegen</a>
         <br><br>
-
         <table class="admin-table">
             <tr>
                 <th>ID</th>
@@ -42,8 +41,6 @@ $producten = getData("producten");
             <?php endforeach; ?>
         </table>
     </div>
-
     <?php include 'footer.php'; ?>
 </body>
-
 </html>
