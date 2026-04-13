@@ -4,9 +4,7 @@
 // Functie: Hoofdbestand voor alle database functies
 include_once "config.php";
 
-/* =======================
-   DATABASE
-======================= */
+
 function connectDb()
 {
     try {
@@ -31,11 +29,9 @@ function getData($table)
     return $stmt->fetchAll();
 }
 
-/* =======================
-   LEVERANCIERS
-======================= */
 
-// ✅ NIEUW: nodig voor dropdown
+
+// Jehad leverancier 
 function getLeveren()
 {
     $conn = connectDb();
@@ -112,7 +108,7 @@ function getProduct($id)
     return $stmt->fetch();
 }
 
-// ✅ AANGEPAST: leverancier_id opslaan
+
 function insertProduct($post)
 {
     $conn = connectDb();
@@ -280,9 +276,7 @@ function deleteReview($id)
     return $stmt->execute([':id' => $id]);
 }
 
-/* =======================
-   UTILS + LOGIN
-======================= */
+// Jehad login 
 function searchProducten($q, $cat)
 {
     $conn = connectDb();
