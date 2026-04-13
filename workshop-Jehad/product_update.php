@@ -2,6 +2,7 @@
 // Auteur: Bashar
 // Functie: Product wijzigen in database
 include_once 'functions.php';
+$leveren = getLeveren();
 
 if (isset($_POST['btn_upd'])) {
     if (updateProduct($_POST)) {
@@ -55,6 +56,24 @@ if (isset($_GET['id'])) {
         <input type="number" name="voorraad" value="<?php echo $product['voorraad']; ?>" required><br>
 
         <input type="submit" name="btn_upd" value="Wijzigen">
+
+        
+<label class="admin-label">Leverancier:</label>
+<select name="leverancier_id" required>
+    <option value="">-- Kies leverancier --</option>
+    <?php foreach ($leveren as $lev): ?>
+        <option value="<?= htmlspecialchars($lev['leverancier_id']) ?>">
+            <?= htmlspecialchars($lev['naam']) ?>
+        </option>
+    <?php endforeach; ?>
+</select><br>
+
+<p>
+    Leverancier:
+    <strong><?= htmlspecialchars($product['naam']); ?></strong>
+</p>
+
+
     </form>
 
     <br>

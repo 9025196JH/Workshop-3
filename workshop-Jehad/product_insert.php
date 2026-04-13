@@ -2,6 +2,7 @@
 // Auteur: Bashar
 // Functie: Product toevoegen aan database
 include_once 'functions.php';
+$leveren = getLeveren();
 
 if (isset($_POST['btn_ins'])) {
     if (insertProduct($_POST)) {
@@ -46,6 +47,20 @@ if (isset($_POST['btn_ins'])) {
         <input type="number" name="voorraad" required><br>
 
         <input type="submit" name="btn_ins" value="Insert">
+
+        
+
+<label class="admin-label">Leverancier:</label>
+<select name="leverancier_id" required>
+    <option value="">-- Kies leverancier --</option>
+    <?php foreach ($leveren as $lev): ?>
+        <option value="<?= htmlspecialchars($lev['leverancier_id']) ?>">
+            <?= htmlspecialchars($lev['naam']) ?>
+        </option>
+    <?php endforeach; ?>
+</select><br>
+
+
     </form>
 
     <br>

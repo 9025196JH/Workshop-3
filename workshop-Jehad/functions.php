@@ -1,17 +1,25 @@
+
 <?php
 // Auteur: Bashar & Jehad
 // Functie: Hoofdbestand voor alle database functies
 include_once "config.php";
 
+/* =======================
+   DATABASE
+======================= */
 function connectDb()
 {
     try {
-        $conn = new PDO("mysql:host=" . SERVERNAME . ";dbname=" . DATABASE, USERNAME, PASSWORD);
+        $conn = new PDO(
+            "mysql:host=" . SERVERNAME . ";dbname=" . DATABASE,
+            USERNAME,
+            PASSWORD
+        );
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $conn;
     } catch (PDOException $e) {
-        echo "Verbinding mislukt: " . $e->getMessage();
+        die("Verbinding mislukt: " . $e->getMessage());
     }
 }
 
@@ -22,11 +30,26 @@ function getData($table)
     $stmt->execute();
     return $stmt->fetchAll();
 }
-// --- LEVERANCIERS FUNCTIES (JEHAD) ---
+
+/* =======================
+   LEVERANCIERS
+======================= */
+
+// ✅ NIEUW: nodig voor dropdown
+function getLeveren()
+{
+    $conn = connectDb();
+    $stmt = $conn->prepare("SELECT leverancier_id, naam FROM leveren");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 function getLeverancier($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("SELECT * FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id");
+    $stmt = $conn->prepare(
+        "SELECT * FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id"
+    );
     $stmt->execute([':id' => $id]);
     return $stmt->fetch();
 }
@@ -34,81 +57,122 @@ function getLeverancier($id)
 function insertLeverancier($post)
 {
     $conn = connectDb();
-    $sql = "INSERT INTO " . TABEL_LEVERANCIERS . " (naam, bedrijfsnaam, telefoonnummer) VALUES (:naam, :bedrijfsnaam, :telefoonnummer)";
+    $sql = "INSERT INTO " . TABEL_LEVERANCIERS .
+           " (naam, bedrijfsnaam, telefoonnummer)
+             VALUES (:naam, :bedrijfsnaam, :telefoonnummer)";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':naam' => $post['naam'], ':bedrijfsnaam' => $post['bedrijfsnaam'], ':telefoonnummer' => $post['telefoonnummer']]);
+    return $stmt->execute([
+        ':naam' => $post['naam'],
+        ':bedrijfsnaam' => $post['bedrijfsnaam'],
+        ':telefoonnummer' => $post['telefoonnummer']
+    ]);
 }
 
 function updateLeverancier($post)
 {
     $conn = connectDb();
-    $sql = "UPDATE " . TABEL_LEVERANCIERS . " SET naam=:naam, bedrijfsnaam=:bedrijfsnaam, telefoonnummer=:telefoonnummer WHERE leverancier_id=:id";
+    $sql = "UPDATE " . TABEL_LEVERANCIERS . "
+            SET naam=:naam, bedrijfsnaam=:bedrijfsnaam, telefoonnummer=:telefoonnummer
+            WHERE leverancier_id=:id";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':naam' => $post['naam'], ':bedrijfsnaam' => $post['bedrijfsnaam'], ':telefoonnummer' => $post['telefoonnummer'], ':id' => $post['leverancier_id']]);
+    return $stmt->execute([
+        ':naam' => $post['naam'],
+        ':bedrijfsnaam' => $post['bedrijfsnaam'],
+        ':telefoonnummer' => $post['telefoonnummer'],
+        ':id' => $post['leverancier_id']
+    ]);
 }
 
 function deleteLeverancier($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("DELETE FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id");
+    $stmt = $conn->prepare(
+        "DELETE FROM " . TABEL_LEVERANCIERS . " WHERE leverancier_id = :id"
+    );
     return $stmt->execute([':id' => $id]);
 }
 
-function printCrudTabel($result)
-{
-    echo "<table class='admin-table'><tr>";
-    foreach (array_keys($result[0]) as $header) echo "<th>$header</th>";
-    echo "<th colspan='2'>Actie</th></tr>";
-    foreach ($result as $row) {
-        echo "<tr>";
-        foreach ($row as $cell) echo "<td>" . htmlspecialchars($cell) . "</td>";
-        $id = isset($row['inloggen_id']) ? $row['inloggen_id'] : 0;
-        echo "<td><a href='update.php?id=$id'>Wijzig</a></td>";
-        echo "<td><a href='delete.php?id=$id' onclick='return confirm(\"Zeker weten?\")'>Verwijder</a></td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-}
+/* =======================
+   PRODUCTEN
+======================= */
 
-// --- BASHAR'S PRODUCTEN FUNCTIES ---
-
+// ✅ AANGEPAST: haalt ook leveranciersnaam op
 function getProduct($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("SELECT * FROM " . TABEL_PRODUCTEN . " WHERE product_id = :id");
+
+    $sql = "SELECT p.*, l.naam AS leverancier_naam
+            FROM producten p
+            LEFT JOIN leveren l
+              ON p.leverancier_id = l.leverancier_id
+            WHERE p.product_id = :id";
+
+    $stmt = $conn->prepare($sql);
     $stmt->execute([':id' => $id]);
     return $stmt->fetch();
 }
 
+// ✅ AANGEPAST: leverancier_id opslaan
 function insertProduct($post)
 {
     $conn = connectDb();
-    $sql = "INSERT INTO " . TABEL_PRODUCTEN . " (naam, categorie, prijs, foto, voorraad) VALUES (:naam, :categorie, :prijs, :foto, :voorraad)";
+    $sql = "INSERT INTO " . TABEL_PRODUCTEN . "
+            (naam, categorie, prijs, foto, voorraad, leverancier_id)
+            VALUES
+            (:naam, :categorie, :prijs, :foto, :voorraad, :leverancier_id)";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':naam' => $post['naam'], ':categorie' => $post['categorie'], ':prijs' => $post['prijs'], ':foto' => $post['foto'], ':voorraad' => $post['voorraad']]);
+    return $stmt->execute([
+        ':naam' => $post['naam'],
+        ':categorie' => $post['categorie'],
+        ':prijs' => $post['prijs'],
+        ':foto' => $post['foto'],
+        ':voorraad' => $post['voorraad'],
+        ':leverancier_id' => $post['leverancier_id']
+    ]);
 }
 
+// ✅ AANGEPAST: leverancier_id bijwerken
 function updateProduct($post)
 {
     $conn = connectDb();
-    $sql = "UPDATE " . TABEL_PRODUCTEN . " SET naam=:naam, categorie=:categorie, prijs=:prijs, foto=:foto, voorraad=:voorraad WHERE product_id=:id";
+    $sql = "UPDATE " . TABEL_PRODUCTEN . " SET
+                naam=:naam,
+                categorie=:categorie,
+                prijs=:prijs,
+                foto=:foto,
+                voorraad=:voorraad,
+                leverancier_id=:leverancier_id
+            WHERE product_id=:id";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':naam' => $post['naam'], ':categorie' => $post['categorie'], ':prijs' => $post['prijs'], ':foto' => $post['foto'], ':voorraad' => $post['voorraad'], ':id' => $post['product_id']]);
+    return $stmt->execute([
+        ':naam' => $post['naam'],
+        ':categorie' => $post['categorie'],
+        ':prijs' => $post['prijs'],
+        ':foto' => $post['foto'],
+        ':voorraad' => $post['voorraad'],
+        ':leverancier_id' => $post['leverancier_id'],
+        ':id' => $post['product_id']
+    ]);
 }
 
 function deleteProduct($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("DELETE FROM " . TABEL_PRODUCTEN . " WHERE product_id = :id");
+    $stmt = $conn->prepare(
+        "DELETE FROM " . TABEL_PRODUCTEN . " WHERE product_id = :id"
+    );
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S KLACHTEN FUNCTIES ---
-
+/* =======================
+   KLACHTEN
+======================= */
 function getKlacht($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("SELECT * FROM " . TABEL_KLACHTEN . " WHERE klacht_id = :id");
+    $stmt = $conn->prepare(
+        "SELECT * FROM " . TABEL_KLACHTEN . " WHERE klacht_id = :id"
+    );
     $stmt->execute([':id' => $id]);
     return $stmt->fetch();
 }
@@ -116,32 +180,58 @@ function getKlacht($id)
 function insertKlacht($post)
 {
     $conn = connectDb();
-    $sql = "INSERT INTO " . TABEL_KLACHTEN . " (product_id, naam, email, beschrijving, datum) VALUES (:product_id, :naam, :email, :beschrijving, CURDATE())";
+    $sql = "INSERT INTO " . TABEL_KLACHTEN .
+           " (product_id, naam, email, beschrijving, datum)
+             VALUES (:product_id, :naam, :email, :beschrijving, CURDATE())";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':product_id' => $post['product_id'], ':naam' => $post['naam'], ':email' => $post['email'], ':beschrijving' => $post['beschrijving']]);
+    return $stmt->execute([
+        ':product_id' => $post['product_id'],
+        ':naam' => $post['naam'],
+        ':email' => $post['email'],
+        ':beschrijving' => $post['beschrijving']
+    ]);
 }
 
 function updateKlacht($post)
 {
     $conn = connectDb();
-    $sql = "UPDATE " . TABEL_KLACHTEN . " SET product_id=:product_id, naam=:naam, email=:email, beschrijving=:beschrijving, admin_antwoord=:admin_antwoord, datum=CURDATE() WHERE klacht_id=:id";
+    $sql = "UPDATE " . TABEL_KLACHTEN . "
+            SET product_id=:product_id,
+                naam=:naam,
+                email=:email,
+                beschrijving=:beschrijving,
+                admin_antwoord=:admin_antwoord,
+                datum=CURDATE()
+            WHERE klacht_id=:id";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':product_id' => $post['product_id'], ':naam' => $post['naam'], ':email' => $post['email'], ':beschrijving' => $post['beschrijving'], ':admin_antwoord' => $post['admin_antwoord'], ':id' => $post['klacht_id']]);
+    return $stmt->execute([
+        ':product_id' => $post['product_id'],
+        ':naam' => $post['naam'],
+        ':email' => $post['email'],
+        ':beschrijving' => $post['beschrijving'],
+        ':admin_antwoord' => $post['admin_antwoord'],
+        ':id' => $post['klacht_id']
+    ]);
 }
 
 function deleteKlacht($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("DELETE FROM " . TABEL_KLACHTEN . " WHERE klacht_id = :id");
+    $stmt = $conn->prepare(
+        "DELETE FROM " . TABEL_KLACHTEN . " WHERE klacht_id = :id"
+    );
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S REVIEWS FUNCTIES ---
-
+/* =======================
+   REVIEWS
+======================= */
 function getReview($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("SELECT * FROM " . TABEL_REVIEWS . " WHERE review_id = :id");
+    $stmt = $conn->prepare(
+        "SELECT * FROM " . TABEL_REVIEWS . " WHERE review_id = :id"
+    );
     $stmt->execute([':id' => $id]);
     return $stmt->fetch();
 }
@@ -149,85 +239,70 @@ function getReview($id)
 function insertReview($post)
 {
     $conn = connectDb();
-    $sql = "INSERT INTO " . TABEL_REVIEWS . " (product_id, naam, beoordeling, opmerking, datum) VALUES (:product_id, :naam, :beoordeling, :opmerking, CURDATE())";
+    $sql = "INSERT INTO " . TABEL_REVIEWS .
+           " (product_id, naam, beoordeling, opmerking, datum)
+             VALUES (:product_id, :naam, :beoordeling, :opmerking, CURDATE())";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':product_id' => $post['product_id'], ':naam' => $post['naam'], ':beoordeling' => $post['beoordeling'], ':opmerking' => $post['opmerking']]);
+    return $stmt->execute([
+        ':product_id' => $post['product_id'],
+        ':naam' => $post['naam'],
+        ':beoordeling' => $post['beoordeling'],
+        ':opmerking' => $post['opmerking']
+    ]);
 }
 
 function updateReview($post)
 {
     $conn = connectDb();
-    $sql = "UPDATE " . TABEL_REVIEWS . " SET naam=:naam, beoordeling=:beoordeling, opmerking=:opmerking, admin_antwoord=:admin_antwoord, datum=CURDATE() WHERE review_id=:id";
+    $sql = "UPDATE " . TABEL_REVIEWS . "
+            SET naam=:naam,
+                beoordeling=:beoordeling,
+                opmerking=:opmerking,
+                admin_antwoord=:admin_antwoord,
+                datum=CURDATE()
+            WHERE review_id=:id";
     $stmt = $conn->prepare($sql);
-    return $stmt->execute([':naam' => $post['naam'], ':beoordeling' => $post['beoordeling'], ':opmerking' => $post['opmerking'], ':admin_antwoord' => $post['admin_antwoord'], ':id' => $post['review_id']]);
+    return $stmt->execute([
+        ':naam' => $post['naam'],
+        ':beoordeling' => $post['beoordeling'],
+        ':opmerking' => $post['opmerking'],
+        ':admin_antwoord' => $post['admin_antwoord'],
+        ':id' => $post['review_id']
+    ]);
 }
 
 function deleteReview($id)
 {
     $conn = connectDb();
-    $stmt = $conn->prepare("DELETE FROM " . TABEL_REVIEWS . " WHERE review_id = :id");
+    $stmt = $conn->prepare(
+        "DELETE FROM " . TABEL_REVIEWS . " WHERE review_id = :id"
+    );
     return $stmt->execute([':id' => $id]);
 }
 
-// --- BASHAR'S UTILS ---
-
+/* =======================
+   UTILS + LOGIN
+======================= */
 function searchProducten($q, $cat)
 {
     $conn = connectDb();
-    $sql = "SELECT * FROM " . TABEL_PRODUCTEN . " WHERE (naam LIKE :q OR categorie LIKE :q)";
-    if ($cat != "") {
-        $sql .= " AND categorie = :cat";
-    }
+    $sql = "SELECT * FROM " . TABEL_PRODUCTEN . "
+            WHERE (naam LIKE :q OR categorie LIKE :q)";
+    if ($cat != "") $sql .= " AND categorie = :cat";
     $stmt = $conn->prepare($sql);
     $params = [':q' => "%$q%"];
-    if ($cat != "") {
-        $params[':cat'] = $cat;
-    }
+    if ($cat != "") $params[':cat'] = $cat;
     $stmt->execute($params);
     return $stmt->fetchAll();
 }
 
-function printTabel($result, $id_kolom, $edit_url, $delete_url, $hide = [])
-{
-    if (empty($result)) {
-        echo "Geen gegevens gevonden.";
-        return;
-    }
-    $rating_labels = [1 => '1 - Slecht', 2 => '2 - Matig', 3 => '3 - Goed', 4 => '4 - Zeer goed', 5 => '5 - Uitstekend'];
-    echo "<table class='admin-table'><tr>";
-    foreach (array_keys($result[0]) as $h) if (!in_array($h, $hide)) echo "<th>$h</th>";
-    echo "<th>Acties</th></tr>";
-    foreach ($result as $row) {
-        echo "<tr>";
-        foreach ($row as $k => $v) {
-            if (!in_array($k, $hide)) {
-                if ($k == 'beoordeling' && isset($rating_labels[$v])) echo "<td>" . $rating_labels[$v] . "</td>";
-                else echo "<td>" . htmlspecialchars($v) . "</td>";
-            }
-        }
-        echo "<td><a href='$edit_url?id=" . $row[$id_kolom] . "'>Wijzig</a> | <a href='$delete_url?id=" . $row[$id_kolom] . "' onclick='return confirm(\"Zeker weten?\")'>Verwijder</a></td></tr>";
-    }
-    echo "</table>";
-}
-
-// --- Jehad LOGIN FUNCTIONS ---
-
 function checkLogin($email, $wachtwoord)
 {
-    // Vaste inloggegevens in de code
-    $validEmail = 'test@techzone.nl';
-    $validPassword = 'test123';
-    
-    if ($email === $validEmail && $wachtwoord === $validPassword) {
-        return [
-            'inloggen_id' => 1,
-            'naam' => 'Test Gebruiker',
-            'email' => $validEmail
-        ];
+    if ($email === 'test@techzone.nl' && $wachtwoord === 'test123') {
+        return ['inloggen_id' => 1, 'naam' => 'Test Gebruiker'];
     }
     return false;
 }
-
 
 function logout()
 {
@@ -237,3 +312,41 @@ function logout()
     exit();
 }
 
+
+function printTabel($result, $id_kolom, $edit_url, $delete_url, $hide = [])
+{
+    if (empty($result)) {
+        echo "Geen gegevens gevonden.";
+        return;
+    }
+
+    echo "<table class='admin-table'><tr>";
+
+    foreach (array_keys($result[0]) as $header) {
+        if (!in_array($header, $hide)) {
+            echo "<th>$header</th>";
+        }
+    }
+    echo "<th>Acties</th></tr>";
+
+    foreach ($result as $row) {
+        echo "<tr>";
+
+        foreach ($row as $key => $value) {
+            if (!in_array($key, $hide)) {
+                echo "<td>" . htmlspecialchars($value) . "</td>";
+            }
+        }
+
+        echo "<td>
+                <a href='$edit_url?id={$row[$id_kolom]}'>Wijzig</a> |
+                <a href='$delete_url?id={$row[$id_kolom]}' onclick='return confirm(\"Zeker weten?\")'>Verwijder</a>
+              </td>";
+
+        echo "</tr>";
+    }
+
+    echo "</table>";
+}
+
+?>
