@@ -24,6 +24,7 @@ $row = getLeverancier($_GET['id']);
         <label class="admin-label">Telefoon:</label><input type="text" name="telefoonnummer" value="<?php echo $row['telefoonnummer']; ?>"><br>
         <input type="submit" name="btn_upd" value="Wijzigen">
     </form>
+     <a href="crud_leverancier.php">Terug naar overzicht</a>
     <?php include 'footer.php'; ?>
 </body>
 

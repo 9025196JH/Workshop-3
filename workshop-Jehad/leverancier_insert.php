@@ -22,6 +22,7 @@ if (isset($_POST['btn_ins'])) {
         <label class="admin-label">Telefoon:</label><input type="text" name="telefoonnummer" required><br>
         <input type="submit" name="btn_ins" value="Insert">
     </form>
+     <a href="crud_leverancier.php">Terug naar overzicht</a>
     <?php include 'footer.php'; ?>
 </body>
 
